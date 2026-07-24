@@ -3,7 +3,7 @@ uvicorn[standard]>=0.28.0
 pydantic>=2.6.0
 pydantic-settings>=2.2.0
 python-dotenv>=1.0.1
-yt-dlp>=2024.3.10
+yt-dlp
 google-genai>=0.1.1
 openai>=1.14.0
 pydub>=0.25.1

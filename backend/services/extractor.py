@@ -116,7 +116,7 @@ class IVideoExtractor:
                     break
 
         ydl_opts = {
-            'format': 'bestaudio[ext=m4a]/bestaudio/best',
+            'format': 'bestaudio/best',
             'outtmpl': out_template,
             'writesubtitles': True,
             'writeautomaticsub': True,
