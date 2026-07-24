@@ -29,7 +29,7 @@ export const MediaSyncPlayer = forwardRef<MediaSyncPlayerRef, MediaSyncPlayerPro
           }
         } else if (videoRef.current) {
           videoRef.current.currentTime = seconds;
-          videoRef.current.play().catch(() => {});
+          videoRef.current.play().catch(() => { });
         }
       }
     }));
@@ -40,7 +40,7 @@ export const MediaSyncPlayer = forwardRef<MediaSyncPlayerRef, MediaSyncPlayerPro
       return (match && match[2].length === 11) ? match[2] : null;
     };
 
-    const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+    const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL || 'https://clipnote-1-nbeu.onrender.com';
     const isYoutube = sourceType === 'youtube' || mediaUrl.includes('youtube.com') || mediaUrl.includes('youtu.be');
     const youtubeId = isYoutube ? extractYoutubeId(mediaUrl) : null;
     const fullMediaUrl = mediaUrl.startsWith('http') ? mediaUrl : `${apiBaseUrl}${mediaUrl}`;

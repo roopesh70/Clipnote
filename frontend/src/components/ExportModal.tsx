@@ -17,9 +17,9 @@ export const ExportModal: React.FC<ExportModalProps> = ({ jobId, isOpen, onClose
 
   const handleExport = (format: 'pdf' | 'md' | 'anki') => {
     setDownloadingFormat(format);
-    const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+    const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL || 'https://clipnote-1-nbeu.onrender.com';
     const exportUrl = `${apiBaseUrl}/api/lectures/${jobId}/export?format=${format}&with_answers=${withAnswers}`;
-    
+
     const link = document.createElement('a');
     link.href = exportUrl;
     link.download = `clipnote_export.${format === 'anki' ? 'txt' : format}`;
@@ -116,8 +116,8 @@ export const ExportModal: React.FC<ExportModalProps> = ({ jobId, isOpen, onClose
                   <p className="text-xs" style={{ color: 'var(--text-muted)' }}>{fmt.desc}</p>
                 </div>
               </div>
-              {downloadingFormat === fmt.key 
-                ? <Check className="w-4 h-4 animate-bounce" style={{ color: fmt.accentColor }} /> 
+              {downloadingFormat === fmt.key
+                ? <Check className="w-4 h-4 animate-bounce" style={{ color: fmt.accentColor }} />
                 : <Download className="w-4 h-4 group-hover:scale-110 transition-transform" style={{ color: 'var(--text-muted)' }} />
               }
             </button>
