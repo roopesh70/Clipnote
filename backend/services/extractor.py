@@ -91,6 +91,30 @@ class IVideoExtractor:
         except Exception as e:
             logger.warning(f"Could not load imageio_ffmpeg: {e}")
 
+        # Check for cookies file to bypass bot protection on cloud environments
+        cookies_file = None
+        cookies_env = os.getenv("YOUTUBE_COOKIES_CONTENT")
+        if cookies_env:
+            temp_cookies_path = output_dir / "temp_cookies.txt"
+            try:
+                temp_cookies_path.write_text(cookies_env, encoding="utf-8")
+                cookies_file = str(temp_cookies_path)
+                logger.info(f"Loaded cookies from YOUTUBE_COOKIES_CONTENT env var.")
+            except Exception as ce:
+                logger.warning(f"Failed to write temp cookies file: {ce}")
+        else:
+            # Check common paths
+            paths_to_check = [
+                Path(__file__).resolve().parent.parent / "cookies.txt",
+                Path.cwd() / "cookies.txt",
+                output_dir / "cookies.txt",
+            ]
+            for p in paths_to_check:
+                if p.exists():
+                    cookies_file = str(p)
+                    logger.info(f"Found cookies file at: {cookies_file}")
+                    break
+
         ydl_opts = {
             'format': 'bestaudio[ext=m4a]/bestaudio/best',
             'outtmpl': out_template,
@@ -101,6 +125,9 @@ class IVideoExtractor:
             'quiet': True,
             'no_warnings': True,
         }
+
+        if cookies_file:
+            ydl_opts['cookiefile'] = cookies_file
 
         if ffmpeg_exe and os.path.exists(ffmpeg_exe):
             ydl_opts['ffmpeg_location'] = ffmpeg_exe
