@@ -17,7 +17,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose })
 
   const handleSave = async () => {
     try {
-      const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+      const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL || 'https://clipnote-1-nbeu.onrender.com';
       await fetch(`${apiBaseUrl}/api/settings`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
